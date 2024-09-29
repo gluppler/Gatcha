@@ -10,6 +10,67 @@ This tool is a lightweight and functional way to match patterns in text, making 
 - Supports alphanumeric matching (`\w`) and digit matching (`\d`).
 
 ---
+### Premise
+
+1. **Start**: 
+   - The user provides input via the command line with the `-E <pattern>` option.
+   
+2. **Pattern Validation**:
+   - Gatcha checks if the provided arguments are valid. If the arguments are incorrect or missing, it prints: 
+     ```
+     Usage: -E <pattern>
+     ```
+     and exits with an error.
+
+3. **Input Loop**:
+   - The program enters a continuous loop, waiting for the user to input lines of text (typically one line at a time).
+
+4. **Pattern Matching**:
+   - For each line entered, Gatcha attempts to match the given pattern against the line using its regex engine.
+   - It checks for:
+     - Literal characters
+     - Character classes (like `\d` for digits or `\w` for alphanumeric)
+     - Special symbols (`.`, `+`, `*`, etc.)
+     - Anchors (like `^` for start-of-line or `$` for end-of-line)
+     - Alternation and grouping (`|` and `()`)
+
+5. **Match Found**:
+   - If the pattern matches the line:
+     - The program prints the matching line and continues waiting for more input.
+   
+6. **No Match**:
+   - If no match is found:
+     - The program moves on to the next input line without taking any further action.
+
+7. **Exit**:
+   - The user can terminate the program manually (e.g., via Ctrl+C) when they no longer want to input more lines.
+
+---
+
+### Usage Example:
+
+To compile and run **Gatcha** on your machine, follow these steps:
+
+1. **Compile**:
+   ```
+   ghc -o gatcha Main.hs
+   ```
+
+2. **Run**:
+   ```
+   ./gatcha -E "^hello"
+   ```
+
+   After launching, Gatcha will wait for your input. For example:
+
+   ```
+   > hello world
+   (Output) hello world  # This line matches the pattern
+   > goodbye world
+   (No output, as the pattern doesn't match)
+   ```
+
+Gatcha will continue to read and check lines against your pattern until you exit manually.
 
 ## How to Compile and Run Gatcha
 
